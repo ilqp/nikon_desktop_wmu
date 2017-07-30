@@ -22,8 +22,9 @@
 #############################################################################
 #
 
-from __future__ import print_function
 from __future__ import division
+from __future__ import print_function
+
 #
 # six.py's remapping works as intended under Python 2.x but PyInstaller doesn't know how
 # handle its remapping yet, so when running on Python 2.x I  always use the standard
@@ -53,7 +54,6 @@ import errno
 import platform
 import json
 import datetime
-import signal
 import sys
 
 #

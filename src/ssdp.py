@@ -13,18 +13,18 @@
 
 
 
-from __future__ import print_function
 from __future__ import division
-import six
-from six.moves import xrange
-import socket
-# from applog import *
-import struct
-import select
-import time
-import sys
+from __future__ import print_function
+
 import platform
+# from applog import *
+import select
+import socket
+import time
+
+import six
 from applog import *
+from six.moves import xrange
 
 #	
 # ssdpTypeFromResponseStr() return values
@@ -187,7 +187,7 @@ def discover(serviceNameList, ssdpServiceVerifyOkCallback=None, numAttempts=3, t
             sockList.append(sock)
         except socket.error as e:
             applog_w("Warning: Unable to prepare hostname socket for SSDP Discovery: {:s}".format(str(e)))
-        # let attempt continue since we have a primary socket to use
+            # let attempt continue since we have a primary socket to use
 
     #
     # create additional sockets if specified
@@ -250,7 +250,8 @@ def discover(serviceNameList, ssdpServiceVerifyOkCallback=None, numAttempts=3, t
                     applog_d("SSDP Message [socket #{:d}]:\n{:s}".format(sockList.index(sock), ssdpMessage))
                     for serviceNameStr in serviceNameList:
                         if isMessageForService(ssdpMessage, serviceNameStr) and (
-                                ssdpServiceVerifyOkCallback == None or ssdpServiceVerifyOkCallback(ssdpMessage)):
+                                        ssdpServiceVerifyOkCallback == None or ssdpServiceVerifyOkCallback(
+                                    ssdpMessage)):
                             # SSDP message is for a service caller wants and he optionally qualify it further - we're done
                             for sock in sockList:
                                 sock.close()

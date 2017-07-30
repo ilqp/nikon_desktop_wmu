@@ -11,8 +11,8 @@
 #############################################################################
 #
 
-from __future__ import print_function
 from __future__ import division
+from __future__ import print_function
 
 
 class LinkedList():
@@ -91,7 +91,7 @@ class LinkedListObj():
         self._next = None
         if linkedList:
             linkedList.insert(self)
-        # else obj user will call insert() himself
+            # else obj user will call insert() himself
 
     # note I named these llNext()/llPrev() instead of  next()/prev() in case inherited class wants to claim those generic method names for itself
     def llNext(self):

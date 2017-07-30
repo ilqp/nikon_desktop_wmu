@@ -11,32 +11,34 @@
 #############################################################################
 #
 
-from __future__ import print_function
 from __future__ import division
-import six
-from six.moves import xrange
-from six.moves import cPickle as pickle
+from __future__ import print_function
+
 import argparse
-import mtpwifi
-from mtpdef import *
-import strutil
-import struct
-import time
 import datetime
-import sys
-import os
 import errno
+import hashlib
 import math
-import traceback
+import os
 import platform
 import socket
-import hashlib
-from dlinkedlist import *
-from collections import namedtuple
-from applog import *
-import rename
-import ssdp
+import struct
 import subprocess
+import sys
+import time
+import traceback
+from collections import namedtuple
+
+import mtpwifi
+import rename
+import six
+import ssdp
+import strutil
+from applog import *
+from dlinkedlist import *
+from mtpdef import *
+from six.moves import cPickle as pickle
+from six.moves import xrange
 
 #
 # constants
@@ -507,12 +509,12 @@ def translateDateCmdLineArgToEpoch(cmdArgDesc, isInclusiveEndDate=False):
     except ValueError as e:
         applog_e(
             "Date specified for \"--{:s}\" is \"{:s}\", which is formatted incorrectly or has an invalid date/time. It must be formatted as mm/dd/yy or mm/dd/yy hh:mm:ss (including leading zeros) and be a valid date/time.". \
-            format(cmdArgDesc, userDateTimeStr))
+                format(cmdArgDesc, userDateTimeStr))
         sys.exit(ERRNO_BAD_CMD_LINE_ARG)
     timeEpoch = time.mktime(strptimeResult)
     if bOnlyDateSpecified and isInclusiveEndDate:
         timeEpoch += (23 * 60 * 60) + (
-        59 * 60) + 59  # make end date inclusive by adding 23 hours, 59 minutes, 59 seconds to epoch time
+            59 * 60) + 59  # make end date inclusive by adding 23 hours, 59 minutes, 59 seconds to epoch time
     return timeEpoch
 
 
@@ -2046,7 +2048,7 @@ def buildMtpObjects(fReportObjectTotals=True):
                 #
                 if (e.mtpRespCode == MTP_RESP_COMMUNICATION_ERROR):
                     raise
-                # else the error is normal and means the user didn't selected any images for upload in the camera
+                    # else the error is normal and means the user didn't selected any images for upload in the camera
         # else camera does not support transfer lists
         if not g.fAllObjsAreFromCameraTransferList:
             if g.args['cameratransferlist'] == 'exitifnotavail':
@@ -2949,7 +2951,7 @@ def downloadMtpFileObjects(firstMtpObjectToDownload=None):
                         # we've reached/exceeded our max buffer size or this is the final piece. write out the data we have
                         foDownloadedFile = writeDataToDownloadedFile(foDownloadedFile, localFilenameWithPath,
                                                                      dataReceived, bIsFinalPiece, (
-                                                                     bytesWritten != 0))  # close file if this is the last piece
+                                                                         bytesWritten != 0))  # close file if this is the last piece
                         mtpObject.partialDownloadObj().addBytesWritten(len(dataReceived))
                         bytesWritten += len(dataReceived)
                         dataReceived = six.binary_type()

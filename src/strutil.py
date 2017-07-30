@@ -11,14 +11,16 @@
 #############################################################################
 #
 
-from __future__ import print_function
 from __future__ import division
-import six
-from six.moves import xrange
+from __future__ import print_function
+
 import struct
-from applog import *
 import sys
 import time
+
+import six
+from applog import *
+from six.moves import xrange
 
 
 def hexByte(value):
@@ -160,7 +162,7 @@ def hexdump(data, bytesPerField=1, includeASCII=1):
                     fieldsNotPrintedInFinalLine = (16 - endingOffsetThisFieldInLine) * bytesPerField
                     charactersPerFieldIncludingSpace = bytesPerField * 2 + 1
                     strHexDump += " " * (
-                    fieldsNotPrintedInFinalLine * charactersPerFieldIncludingSpace)  # add spaces for each missing field
+                        fieldsNotPrintedInFinalLine * charactersPerFieldIncludingSpace)  # add spaces for each missing field
                     if (endingOffsetThisFieldInLine < 8):
                         strHexDump += "  "  # add spaces for missing middle separator
                 for asciiOffset in range(offsetThisFieldInLine + 1):

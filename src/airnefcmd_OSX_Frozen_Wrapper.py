@@ -15,8 +15,9 @@
 #############################################################################
 #
 
-from __future__ import print_function
 from __future__ import division
+from __future__ import print_function
+
 import sys
 
 #
@@ -25,10 +26,7 @@ import sys
 #
 print("airnefcmd OSX wrapper, running under Python Version {:d}.{:d}.{:d}". \
       format(sys.version_info.major, sys.version_info.minor, sys.version_info.micro))
-import strutil
-import time
 import os
-import errno
 import airnefcmd
 import platform
 

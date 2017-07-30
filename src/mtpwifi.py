@@ -19,18 +19,19 @@
 #############################################################################
 #
 
-from __future__ import print_function
 from __future__ import division
-import six
-import socket
-import sys
-import struct
-import time
-import strutil
+from __future__ import print_function
+
 import errno
+import socket
+import struct
+import sys
+from collections import namedtuple
+
+import six
+import strutil
 from applog import *
 from mtpdef import *
-from collections import namedtuple
 
 #
 # module constants
@@ -148,14 +149,14 @@ def rxPayload(s, rxProgressFunc=None):
                 (payloadId,) = struct.unpack('<I', data[0:4])
             payloadBytesReceived = len(data)
             if rxProgressFunc and payloadBytesReceived >= 8 and (
-                    payloadId == MTP_TCPIP_PAYLOAD_ID_DataPayload or payloadId == MTP_TCPIP_PAYLOAD_ID_DataPayloadLast):
+                            payloadId == MTP_TCPIP_PAYLOAD_ID_DataPayload or payloadId == MTP_TCPIP_PAYLOAD_ID_DataPayloadLast):
                 rxProgressFunc(payloadBytesReceived - 8)  # -8 to exclude header data from count
 
         # return the data received [not including 4-byte size preamble]
         return data
     except socket.error as error:
         if payloadBytesReceived and (
-                payloadId == MTP_TCPIP_PAYLOAD_ID_DataPayload or payloadId == MTP_TCPIP_PAYLOAD_ID_DataPayloadLast) and \
+                        payloadId == MTP_TCPIP_PAYLOAD_ID_DataPayload or payloadId == MTP_TCPIP_PAYLOAD_ID_DataPayloadLast) and \
                         payloadBytesReceived >= 12:
             #
             # if this is a data payload and we received at least 12 bytes of data (8 bytes of header data, so at least 4 bytes of actual data),
@@ -286,14 +287,14 @@ def execMtpOp(s, mtpOp, cmdArgsPacked=six.binary_type(), dataToSend=six.binary_t
                 if dataDirection != MTP_DATA_DIRECTION_CAMERA_TO_HOST:
                     raise MtpProtocolException(
                         "Camera Protocol Error: {:s}: Received unexpected MTP_TCPIP_PAYLOAD_ID_DataStart for non-inbound transfer". \
-                        format(getMtpOpDesc(mtpOp)))
+                            format(getMtpOpDesc(mtpOp)))
 
                 # process MTP_TCPIP_PAYLOAD_ID_DataStart
                 (rxTransactionId,) = struct.unpack('<I', data[4:8])
                 if rxTransactionId != txTransactionId:
                     raise MtpProtocolException(
                         "Camera Protocol Error: {:s}: Incorrect transaction ID for MTP_TCPIP_PAYLOAD_ID_DataStart (exp={:08x}, got={:08x})". \
-                        format(getMtpOpDesc(mtpOp), txTransactionId, rxTransactionId))
+                            format(getMtpOpDesc(mtpOp), txTransactionId, rxTransactionId))
                 (totalDataTransferSizeBytesExpectedAcrossAllPayloads,) = struct.unpack('<I', data[8:12])
 
                 # debug dump of DataStart payload
@@ -327,7 +328,7 @@ def execMtpOp(s, mtpOp, cmdArgsPacked=six.binary_type(), dataToSend=six.binary_t
                 if rxTransactionId != txTransactionId:
                     raise MtpProtocolException(
                         "Camera Protocol Error: {:s}: Incorrect transaction ID for MTP_TCPIP_PAYLOAD_ID_CmdResponse (exp={:08x}, got={:08x})". \
-                        format(getMtpOpDesc(mtpOp), txTransactionId, rxTransactionId))
+                            format(getMtpOpDesc(mtpOp), txTransactionId, rxTransactionId))
 
                 if len(data) >= 14:
                     (mtpResponseParameter,) = struct.unpack('<I', data[10:14])

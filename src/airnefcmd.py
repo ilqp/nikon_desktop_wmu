@@ -29,6 +29,9 @@ import time
 import traceback
 from collections import namedtuple
 
+from six.moves import cPickle as pickle
+from six.moves import xrange
+
 import mtpwifi
 import rename
 import six
@@ -37,8 +40,6 @@ import strutil
 from applog import *
 from dlinkedlist import *
 from mtpdef import *
-from six.moves import cPickle as pickle
-from six.moves import xrange
 
 #
 # constants
@@ -454,7 +455,7 @@ def establishAppEnvironment():
     g.isWin32 = (platform.system() == 'Windows')
     g.isOSX = (platform.system() == 'Darwin')
     g.isFrozen = (getattr(sys, 'frozen',
-                          False))  # note for OSX isFrozen is always false because py2app only marks airnef.pyw as frozen when we're a py2app
+                          False))  # note for OSX isFrozen is always false because py2app only marks airnef.py as frozen when we're a py2app
 
     #
     # determine the directory our script resides in, in case the

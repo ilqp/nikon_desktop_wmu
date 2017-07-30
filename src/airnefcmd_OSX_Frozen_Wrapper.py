@@ -18,17 +18,18 @@
 from __future__ import division
 from __future__ import print_function
 
+import os
 import sys
+import platform
 
 #
 # print Python version immediately to troubleshoot any version conflicts
 # within the frozen environment that may cause imports to fail
 #
-print("airnefcmd OSX wrapper, running under Python Version {:d}.{:d}.{:d}". \
-      format(sys.version_info.major, sys.version_info.minor, sys.version_info.micro))
-import os
+print("airnefcmd OSX wrapper, running under Python Version {:d}.{:d}.{:d}"
+      .format(sys.version_info.major, sys.version_info.minor, sys.version_info.micro))
+
 import airnefcmd
-import platform
 
 
 class GlobalVarsStruct:
@@ -85,9 +86,9 @@ def establishAppEnvironment():
 
     #
     # note we always run in a frozen scenario since we're only
-    # executed by airnef.pyw in a frozen environment. our environment
+    # executed by airnef.py in a frozen environment. our environment
     # is not actually marked as frozen though since we're not the
-    # module name associated with the app (airnef.pyw is)
+    # module name associated with the app (airnef.py is)
     #
     g.appDataDir = None
     userHomeDir = os.getenv('HOME')

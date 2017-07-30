@@ -31,6 +31,14 @@ from __future__ import print_function
 # Python 2.x imports, just in case I'm performing a PyInstaller build, which I happen
 # to doing under Python 2.x.
 #
+import time
+import subprocess
+import os
+import errno
+import platform
+import json
+import datetime
+import sys
 import six
 
 if six.PY2:
@@ -47,14 +55,7 @@ else:
     from six.moves import tkinter_ttk as ttk
     from six.moves import tkinter_tkfiledialog as tkFileDialog
     from six.moves import tkinter_messagebox as tkMessageBox
-import time
-import subprocess
-import os
-import errno
-import platform
-import json
-import datetime
-import sys
+
 
 #
 # constants
@@ -164,8 +165,7 @@ def osxFrozenWorkaround_deleteWrapperCommunicationFile(filename):
         os.remove(filename)
 
 
-def osxFrozenWorkaround_waitWrapperCommunicationFileExist(filename, maxWaitTimeSecs=sys.maxsize,
-                                                          processIdCheckTermination=None):
+def osxFrozenWorkaround_waitWrapperCommunicationFileExist(filename, maxWaitTimeSecs=sys.maxsize, processIdCheckTermination=None):
     # waits for airnefcmd_OSX_Frozen_Wrapper.py to create a file to signal the start or completion of airnefcmd.py
     timeStart = time.time()
     while not os.path.exists(filename):
@@ -236,8 +236,7 @@ def osxFrozenWorkaround_LaunchAirnefcmdWrapper(argStr):
     # the file created by the wrapper actually contains the exit code from airnefcmd but since we're
     # not presently using that code I don't bother to read and return it
     #
-    osxFrozenWorkaround_waitWrapperCommunicationFileExist(FILENAME_NOTIFY_DONE,
-                                                          processIdCheckTermination=processIdWrapper)
+    osxFrozenWorkaround_waitWrapperCommunicationFileExist(FILENAME_NOTIFY_DONE, processIdCheckTermination=processIdWrapper)
 
     return 0
 

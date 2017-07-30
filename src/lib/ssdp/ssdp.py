@@ -17,13 +17,12 @@ from __future__ import division
 from __future__ import print_function
 
 import platform
-# from applog import *
+from applog import *
 import select
 import socket
 import time
 
 import six
-from applog import *
 from six.moves import xrange
 
 #	

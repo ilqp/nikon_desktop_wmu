@@ -90,6 +90,9 @@ ENV/
 # Rope project settings
 .ropeproject
 
-#IDEA
+#idea
 .idea/
 .idea/vcs.xml
+
+#project-specific
+appdata/

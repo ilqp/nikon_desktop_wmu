@@ -192,10 +192,10 @@ g = GlobalVarsStruct()
 # global constant data
 #
 CmdLineActionToMtpTransferOpDict = {
-    'getfiles': MTP_OP_GetObject, \
-    'getsmallthumbs': MTP_OP_GetThumb, \
-    'getlargethumbs': MTP_OP_GetLargeThumb \
-    }
+    'getfiles': MTP_OP_GetObject,
+    'getsmallthumbs': MTP_OP_GetThumb,
+    'getlargethumbs': MTP_OP_GetLargeThumb
+}
 
 
 #
